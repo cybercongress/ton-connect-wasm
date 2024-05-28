@@ -13,8 +13,7 @@ jobs:
         with:
           node-version: 16.x
       - name: subrepo cd
-        with:
-          cmd: cd front
+        run: cd front
       - name: Run install
         uses: borales/actions-yarn@v4
         with:
