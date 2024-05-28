@@ -1,0 +1,11 @@
+/**
+ * Copyright (c) Whales Corp.
+ * All Rights Reserved.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+/// <reference types="node" />
+export declare function sha512_sync(source: Buffer | string): Buffer;
+export declare function sha512_fallback(source: Buffer | string): Promise<Buffer>;
+export declare function sha512(source: Buffer | string): Promise<Buffer>;
