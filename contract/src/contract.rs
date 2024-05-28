@@ -33,7 +33,7 @@ pub fn instantiate(
 ) -> Result<Response, ContractError> {
     set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
 
-    CONFIG.save(deps.storage, &Config{ admin: info.sender})?;
+    CONFIG.save(deps.storage, &Config{ admin: info.sender })?;
 
     Ok(Response::default())
 }
@@ -148,8 +148,8 @@ pub fn get_config(store: &dyn Storage) -> StdResult<Config> {
     return Ok(config)
 }
 
-pub fn get_nickname(store: &dyn Storage, address: String) -> StdResult<String> {
-    let nickname = NICKNAMES.load(store, address)?;
+pub fn get_nickname(store: &dyn Storage, pubkey: String) -> StdResult<String> {
+    let nickname = NICKNAMES.load(store, pubkey)?;
 
     return Ok(nickname)
 }
@@ -224,9 +224,9 @@ pub fn check_proof(
     Ok(result)
 }
 
-pub fn get_posts(store: &dyn Storage, address: String) -> StdResult<Vec<Post>> {
+pub fn get_posts(store: &dyn Storage, pubkey: String) -> StdResult<Vec<Post>> {
     let posts = POSTS
-        .prefix(address)
+        .prefix(pubkey)
         .range(store, None, None, Order::Ascending)
         .map(|post| {
             let p: (u64, String) = post.unwrap();
@@ -249,14 +249,11 @@ pub fn get_debug_state(store: &dyn Storage) -> StdResult<State> {
             (addr, Post{post,timestamp})
         })
         .collect::<Vec<(String, Post)>>();
-        // .unwrap();
 
-    let state = State {
+    return Ok(State {
         nicknames,
         posts,
-    };
-
-    return Ok(state)
+    })
 }
 
 #[cfg_attr(not(feature = "library"), entry_point)]
