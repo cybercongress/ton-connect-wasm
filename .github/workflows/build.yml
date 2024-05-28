@@ -1,42 +1,45 @@
-name: build_app
+name: build_cyb
 
 on:
   push:
-    branches: 
+    branches:
       - main
 
 jobs:
   build_app:
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.14.x]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies
-      run: |
-        cd ./front
-        yarn install
-      
-    - name: Build ton app
-      run: |
-        cd ./front
-        yarn build
-      
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@3.7.1
-      with:
+      - name: Set environment variable with commit SHA
+        run: |
+          echo "COMMIT_SHA=${{ github.sha }}" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: |
+          cd ./front
+          yarn install
+
+      - name: Build app
+        run: |
+          cd ./front
+          yarn install
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
           BRANCH: build
-          FOLDER: dist
+          FOLDER: build
           CLEAN: true
