@@ -36,6 +36,14 @@ jobs:
           cd ./front
           yarn install
 
+      - name: Verify build directory
+        run: |
+          -ls -la
+          echo "Contents of front directory:"
+          ls -al front
+          echo "Contents of dist directory (if exists):"
+          ls -al front/dist || echo "dist directory does not exist"
+
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
