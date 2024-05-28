@@ -1,8 +1,6 @@
-import { Analytics } from "@vercel/analytics/react";
 import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "styled-components";
 
-import { ErrorModal } from "@/components/common/Modal/ErrorModal";
 import Router from "@/components/common/Router";
 import { network } from "@/hooks/contract/useTonClient";
 import GlobalStyle from "@/styles/globalStyles";
