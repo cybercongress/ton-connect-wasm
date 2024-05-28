@@ -34,18 +34,18 @@ jobs:
       - name: Build app
         run: |
           cd ./front
-          yarn install
+          yarn build
 
       - name: Verify build directory
         run: |
           ls -la
           echo "Contents of front directory:"
-          ls -al front
+          ls -al ./front/dist
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
           BRANCH: build
-          FOLDER: ./front
+          FOLDER: ./front/dist
           CLEAN: true
