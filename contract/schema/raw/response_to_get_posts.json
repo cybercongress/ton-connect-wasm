@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Array_of_Post",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/Post"
+  },
+  "definitions": {
+    "Post": {
+      "type": "object",
+      "required": [
+        "post",
+        "timestamp"
+      ],
+      "properties": {
+        "post": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        }
+      }
+    }
+  }
+}

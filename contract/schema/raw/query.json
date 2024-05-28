@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QueryMsg",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "config"
+      ],
+      "properties": {
+        "config": {
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "get_nickname"
+      ],
+      "properties": {
+        "get_nickname": {
+          "type": "object",
+          "required": [
+            "pubkey"
+          ],
+          "properties": {
+            "pubkey": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "get_posts"
+      ],
+      "properties": {
+        "get_posts": {
+          "type": "object",
+          "required": [
+            "pubkey"
+          ],
+          "properties": {
+            "pubkey": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "check_proof"
+      ],
+      "properties": {
+        "check_proof": {
+          "type": "object",
+          "required": [
+            "proof",
+            "pubkey"
+          ],
+          "properties": {
+            "proof": {
+              "$ref": "#/definitions/CheckProofPayload"
+            },
+            "pubkey": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "get_debug_state"
+      ],
+      "properties": {
+        "get_debug_state": {
+          "type": "object",
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  ],
+  "definitions": {
+    "CheckProofPayload": {
+      "type": "object",
+      "required": [
+        "address",
+        "network",
+        "proof"
+      ],
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "network": {
+          "$ref": "#/definitions/TonNetwork"
+        },
+        "proof": {
+          "$ref": "#/definitions/TonProof"
+        }
+      }
+    },
+    "TonDomain": {
+      "type": "object",
+      "required": [
+        "lengthBytes",
+        "value"
+      ],
+      "properties": {
+        "lengthBytes": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "TonNetwork": {
+      "type": "string",
+      "enum": [
+        "-239",
+        "-3"
+      ]
+    },
+    "TonProof": {
+      "type": "object",
+      "required": [
+        "domain",
+        "payload",
+        "signature",
+        "state_init",
+        "timestamp"
+      ],
+      "properties": {
+        "domain": {
+          "$ref": "#/definitions/TonDomain"
+        },
+        "payload": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string"
+        },
+        "state_init": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        }
+      }
+    }
+  }
+}
