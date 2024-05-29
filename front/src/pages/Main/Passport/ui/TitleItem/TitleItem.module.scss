@@ -1,0 +1,13 @@
+$size-title: 14px;
+
+.wrapper {
+  display: grid;
+  gap: 15px;
+
+  .title {
+    text-align: center;
+    font-size: $size-title;
+    color: #616161;
+  }
+
+}

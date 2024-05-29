@@ -1,0 +1,33 @@
+$size-item-text: 16px;
+
+.wrapper {
+  display: grid;
+  gap: 20px;
+}
+
+.wrapperItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .denom {
+    font-size: $size-item-text;
+    text-transform: uppercase;
+  }
+
+
+  .amount {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    span {
+      font-size: $size-item-text;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
