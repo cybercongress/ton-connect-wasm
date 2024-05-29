@@ -14,6 +14,7 @@ import { Input } from "@/components/Input";
 import DisplayTitle from "@/components/common/containerGradient/DisplayTitle/DisplayTitle";
 import { Citizenship } from "@/types";
 import MusicalAddress from "@/components/MusicalAddress/MusicalAddress";
+import Passport from "./Passport/Passport";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -132,9 +133,7 @@ const Main = () => {
                 wordBreak: "break-all",
               }}
             >
-              {passport.owner}
-              {JSON.stringify(passport)}
-              {/* <MusicalAddress address={passport.owner} /> */}
+              <Passport passport={passport} />
             </div>
           )}
 
