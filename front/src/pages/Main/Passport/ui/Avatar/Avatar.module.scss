@@ -1,6 +1,9 @@
 $size: 130px;
 
 .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   img {
     width: $size;

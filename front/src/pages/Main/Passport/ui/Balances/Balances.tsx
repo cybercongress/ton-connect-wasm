@@ -2,8 +2,8 @@ import useQueryGetAllBalances from "./api/useQueryGetAllBalances";
 import { Denom } from "./type";
 import { DenomListKey, configDenom } from "./utils/configDenom";
 import styles from "./Balances.module.scss";
-import { formatNumber } from "./utils/formatNumber";
 import TitleItem from "../TitleItem/TitleItem";
+import { formatNumber } from "@/utils/formatNumber";
 
 function BalancesItem({
   amount,
@@ -26,20 +26,22 @@ function BalancesItem({
 function Balances({ address }: { address: string }) {
   const data = useQueryGetAllBalances({ address });
 
-  if (data) {
-    const renderItem = Object.keys(Denom).map((key: DenomListKey) => {
-      const { amount } = data.find((item) => item.denom === key);
-      return <BalancesItem key={key} denom={key} amount={amount} />;
-    });
+  if (!data) {
+    return null;
+  }
 
-    return (
+  const renderItem = Object.keys(Denom).map((key: DenomListKey) => {
+    const { amount } = data.find((item) => item.denom === key);
+    return <BalancesItem key={key} denom={key} amount={amount} />;
+  });
+
+  return (
+    <div className={styles.container}>
       <TitleItem title="Balances">
         <div className={styles.wrapper}>{renderItem}</div>
       </TitleItem>
-    );
-  }
-
-  return null;
+    </div>
+  );
 }
 
 export default Balances;
