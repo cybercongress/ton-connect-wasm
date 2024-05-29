@@ -40,6 +40,12 @@ def handle_tx():
     # Parse the JSON request body
     req_body = request.get_json()
 
+    # Check the request body
+    if "proof" not in req_body.keys():
+        return jsonify({"status": "fail", "error": "There is no proof value"})
+    if "pubkey" not in req_body.keys():
+        return jsonify({"status": "fail", "error": "There is no pubkey value"})
+
     # Extract the transaction data from the request body
     proof = req_body["proof"]
     pubkey = req_body["pubkey"]
