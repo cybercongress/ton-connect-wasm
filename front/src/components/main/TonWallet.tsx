@@ -7,20 +7,34 @@ import IcWalletDisconnect from "../../assets/icons/Landing/ic_wallet_disconnect.
 import useTonConnect from "./../../hooks/contract/useTonConnect";
 import { toBase64, fromBase64, fromAscii, toAscii } from "@cosmjs/encoding";
 
-const TonWallet = ({ nickname, message }) => {
+const TonWallet = ({ nickname, message, type }) => {
   const { connected, tonConnectUI } = useTonConnect();
+
+  const isPassportType = type === "passport";
+
+  let data;
+  if (isPassportType) {
+    data = JSON.stringify({
+      msg_type: "map_nickname",
+      msg_data: nickname,
+    });
+  } else if (message) {
+    data = JSON.stringify({
+      msg_type: "add_post",
+      msg_data: message,
+    });
+  }
 
   const handleSwitchWalletFunction = () => {
     if (connected) {
       console.log(">>> Send message to bacend");
     } else {
-      const dat = JSON.stringify([{ nickname }, { post: message }]);
-      const t = toBase64(toAscii(dat));
+      const d = toBase64(toAscii(data));
 
       tonConnectUI.setConnectRequestParameters({
         state: "ready",
         value: {
-          tonProof: t,
+          tonProof: d,
         },
       });
 
@@ -38,10 +52,22 @@ const TonWallet = ({ nickname, message }) => {
         )}
       </TonConnectStatusBox>
       {connected ? (
-        <TonConnectCenterBox> Create link</TonConnectCenterBox>
+        ""
       ) : (
-        <TonConnectCenterBox>Connect wallet</TonConnectCenterBox>
+        // <TonConnectCenterBox> Create link</TonConnectCenterBox>
+        <TonConnectCenterBox>
+          {isPassportType ? "Passport" : "Text"} proof
+        </TonConnectCenterBox>
       )}
+
+      <p
+        style={{
+          position: "absolute",
+          bottom: "-5px",
+        }}
+      >
+        {JSON.stringify(data)}
+      </p>
     </TonWalletWrapper>
   );
 };

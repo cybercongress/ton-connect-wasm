@@ -12,7 +12,7 @@ const Modal = (props: ModalProps) => {
 
   const clearStorage = () => {
     window.localStorage.clear();
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (

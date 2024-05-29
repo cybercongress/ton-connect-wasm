@@ -12,11 +12,44 @@ const tele = (window as any).Telegram.WebApp;
 const Main = () => {
   const { address, tonConnectUI, wallet, connected } = useTonConnect();
 
+  const [passportProof, setPassportProof] = useState();
+  const [textProof, setTextProof] = useState();
+
   const [message, setMessage] = useState("");
 
   const [nickname, setNickname] = useState("congress");
 
+  console.log(wallet);
+
   const tonProof = wallet?.connectItems?.tonProof;
+
+  // @ts-ignore
+  const body = tonProof && fromAscii(fromBase64(tonProof?.proof?.payload));
+
+  if (body) {
+    const p = JSON.parse(body);
+
+    const type = p.msg_type;
+    const data = p.msg_data;
+
+    if (type === "map_nickname" && !passportProof) {
+      debugger;
+      setPassportProof({
+        ...tonProof,
+        data: p,
+      });
+      tonConnectUI.disconnect();
+    }
+
+    if (type === "add_post" && !textProof) {
+      debugger;
+      setTextProof({
+        ...tonProof,
+        data: p,
+      });
+      tonConnectUI.disconnect();
+    }
+  }
 
   const { data: passport, fetchData } = useCyberPassport({
     nickname,
@@ -44,7 +77,18 @@ const Main = () => {
             setMessage(e.target.value);
           }}
         />
-        <TonWallet message={message} nickname={nickname} />
+        <TonWallet message={message} nickname={nickname} type="text" />
+
+        {textProof && (
+          <div
+            style={{
+              fontSize: 14,
+            }}
+          >
+            <br />
+            {JSON.stringify(textProof)}
+          </div>
+        )}
 
         <br />
 
@@ -75,15 +119,25 @@ const Main = () => {
           </div>
         )}
 
+        <TonWallet nickname={nickname} type="passport" />
+
+        {passportProof && (
+          <div
+            style={{
+              fontSize: 14,
+            }}
+          >
+            <br />
+            {JSON.stringify(passportProof)}
+          </div>
+        )}
+
         {tonProof && (
           <div
             style={{
               fontSize: 14,
             }}
           >
-            {/* @ts-ignore */}
-            {fromAscii(fromBase64(tonProof?.proof?.payload))}
-
             <br />
             {JSON.stringify(tonProof)}
           </div>
