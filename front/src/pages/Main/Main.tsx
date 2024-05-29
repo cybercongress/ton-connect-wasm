@@ -12,6 +12,8 @@ import Display from "@/components/common/containerGradient/Display/Display";
 import MainContainer from "@/components/MainContainer";
 import { Input } from "@/components/Input";
 import DisplayTitle from "@/components/common/containerGradient/DisplayTitle/DisplayTitle";
+import { Citizenship } from "@/types";
+import MusicalAddress from "@/components/MusicalAddress/MusicalAddress";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -58,9 +60,11 @@ const Main = () => {
     }
   }
 
-  const { data: passport, fetchData } = useCyberPassport({
+  const { data: dat2, fetchData } = useCyberPassport({
     nickname,
   });
+
+  const passport = dat2 as Citizenship;
 
   useEffect(() => {
     if (tele) {
@@ -128,7 +132,9 @@ const Main = () => {
                 wordBreak: "break-all",
               }}
             >
+              {passport.owner}
               {JSON.stringify(passport)}
+              {/* <MusicalAddress address={passport.owner} /> */}
             </div>
           )}
 
