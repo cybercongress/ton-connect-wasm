@@ -5,14 +5,25 @@ import IcWalletConnect from "../../assets/icons/Landing/ic_wallet_connect.svg";
 import IcWalletDisconnect from "../../assets/icons/Landing/ic_wallet_disconnect.svg";
 
 import useTonConnect from "./../../hooks/contract/useTonConnect";
+import { toBase64, fromBase64, fromAscii, toAscii } from "@cosmjs/encoding";
 
-const TonWallet = () => {
+const TonWallet = ({ nickname, message }) => {
   const { connected, tonConnectUI } = useTonConnect();
 
   const handleSwitchWalletFunction = () => {
     if (connected) {
       console.log(">>> Send message to bacend");
     } else {
+      const dat = JSON.stringify([{ nickname }, { post: message }]);
+      const t = toBase64(toAscii(dat));
+
+      tonConnectUI.setConnectRequestParameters({
+        state: "ready",
+        value: {
+          tonProof: t,
+        },
+      });
+
       tonConnectUI.connectWallet();
     }
   };
@@ -20,7 +31,11 @@ const TonWallet = () => {
   return (
     <TonWalletWrapper onClick={handleSwitchWalletFunction}>
       <TonConnectStatusBox>
-        {connected ? <img src={IcWalletConnect} alt="connect" /> : <img src={IcWalletDisconnect} alt="disconnect" />}
+        {connected ? (
+          <img src={IcWalletConnect} alt="connect" />
+        ) : (
+          <img src={IcWalletDisconnect} alt="disconnect" />
+        )}
       </TonConnectStatusBox>
       {connected ? (
         <TonConnectCenterBox> Create link</TonConnectCenterBox>

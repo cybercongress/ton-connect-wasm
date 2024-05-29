@@ -5,11 +5,14 @@ import Header from "@/components/common/Header";
 import TonWallet from "@/components/main/TonWallet";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import useCyberPassport from "@/hooks/useCyberPassport";
+import { fromAscii, fromBase64 } from "@cosmjs/encoding";
 
 const tele = (window as any).Telegram.WebApp;
 
 const Main = () => {
-  const { address, tonConnectUI, wallet } = useTonConnect();
+  const { address, tonConnectUI, wallet, connected } = useTonConnect();
+
+  const [message, setMessage] = useState("");
 
   const [nickname, setNickname] = useState("congress");
 
@@ -30,8 +33,18 @@ const Main = () => {
     <>
       <MainWrapper>
         <Header isOpen={false} text="CYBER-TON" backgroundType={false} />
-        <Input placeholder="enter message..." />
-        <TonWallet />
+        <Input
+          placeholder="enter message..."
+          value={message}
+          onChange={(e) => {
+            if (connected) {
+              tonConnectUI.disconnect();
+            }
+
+            setMessage(e.target.value);
+          }}
+        />
+        <TonWallet message={message} nickname={nickname} />
 
         <br />
 
@@ -40,6 +53,10 @@ const Main = () => {
           placeholder="enter passport..."
           onChange={(e) => {
             const value = e.target.value;
+
+            if (connected) {
+              tonConnectUI.disconnect();
+            }
 
             setNickname(value);
           }}
@@ -64,6 +81,9 @@ const Main = () => {
               fontSize: 14,
             }}
           >
+            {fromAscii(fromBase64(tonProof?.proof?.payload))}
+
+            <br />
             {JSON.stringify(tonProof)}
           </div>
         )}

@@ -20,13 +20,6 @@ const Header = (props: HeaderProps) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  tonConnectUI.setConnectRequestParameters({
-    state: "ready",
-    value: {
-      tonProof: "<your-proof-payload>",
-    },
-  });
-
   const handleModalState = () => {
     setIsOpenModal(!isOpenModal);
   };
