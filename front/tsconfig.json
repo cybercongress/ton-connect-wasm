@@ -16,14 +16,12 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@components/*": ["src/components/*"],
-    }
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"]
+    },
 
     /* Linting */
-    // "strict": true,
+    "strict": false
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
     // "noFallthroughCasesInSwitch": true

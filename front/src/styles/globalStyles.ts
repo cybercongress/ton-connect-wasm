@@ -152,7 +152,8 @@ ${reset}
     overflow-y: auto;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
-    background-color: #fff;
+
+    background-color: transparent;
 
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 
@@ -170,7 +171,17 @@ ${reset}
   
 * {
     box-sizing: border-box;
-    /* color: white; */
+    color: white;
+    font-size: 16px;
+    font-family: 'Play';
+
+    @font-face {
+  font-family: 'Play';
+  src: url('../assets/fonts/Play-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
 }
 
 

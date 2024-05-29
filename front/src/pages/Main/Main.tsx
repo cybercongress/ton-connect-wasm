@@ -9,6 +9,8 @@ import { fromAscii, fromBase64 } from "@cosmjs/encoding";
 import Stars from "@/components/stars";
 import Button from "@/components/main/btnGrd";
 import Display from "@/components/common/containerGradient/Display/Display";
+import MainContainer from "@/components/MainContainer";
+import { Input } from "@/components/Input";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -68,111 +70,114 @@ const Main = () => {
 
   return (
     <>
-      <MainWrapper>
-        {/* <Stars /> */}
+      <MainContainer>
+        <Stars />
         {/* <Display>
           <Button> dsls;lsd;</Button>
         </Display> */}
         <Header isOpen={false} text="CYBER-TON" backgroundType={false} />
-        <Input
-          placeholder="enter message..."
-          value={message}
-          onChange={(e) => {
-            if (connected) {
-              tonConnectUI.disconnect();
-            }
 
-            setMessage(e.target.value);
-          }}
-        />
-        <TonWallet message={message} nickname={nickname} type="text" />
+        <Display>
+          <Input
+            placeholder="enter message..."
+            value={message}
+            onChange={(e) => {
+              if (connected) {
+                tonConnectUI.disconnect();
+              }
 
-        {textProof && (
-          <div
-            style={{
-              fontSize: 14,
+              setMessage(e.target.value);
             }}
-          >
-            <br />
-            {JSON.stringify(textProof)}
-          </div>
-        )}
+          />
+          <TonWallet message={message} nickname={nickname} type="text" />
 
-        <br />
+          {textProof && (
+            <div
+              style={{
+                fontSize: 14,
+              }}
+            >
+              <br />
+              {JSON.stringify(textProof)}
+            </div>
+          )}
+        </Display>
 
-        <Input
-          value={nickname}
-          placeholder="enter passport..."
-          onChange={(e) => {
-            const value = e.target.value;
+        <Display>
+          <Input
+            value={nickname}
+            placeholder="enter passport..."
+            onChange={(e) => {
+              const value = e.target.value;
 
-            if (connected) {
-              tonConnectUI.disconnect();
-            }
+              if (connected) {
+                tonConnectUI.disconnect();
+              }
 
-            setNickname(value);
-          }}
-        />
-
-        <button onClick={fetchData}>Load</button>
-
-        {passport && (
-          <div
-            style={{
-              fontSize: 14,
-              wordBreak: "break-all",
+              setNickname(value);
             }}
-          >
-            {JSON.stringify(passport)}
-          </div>
-        )}
+          />
 
-        <TonWallet nickname={nickname} type="passport" />
+          <Button onClick={fetchData}>load passport</Button>
 
-        {passportProof && (
-          <div
-            style={{
-              fontSize: 14,
-            }}
-          >
-            <br />
-            {JSON.stringify(passportProof)}
-          </div>
-        )}
+          {passport && (
+            <div
+              style={{
+                fontSize: 14,
+                wordBreak: "break-all",
+              }}
+            >
+              {JSON.stringify(passport)}
+            </div>
+          )}
 
-        {tonProof && (
-          <div
-            style={{
-              fontSize: 14,
-            }}
-          >
-            <br />
-            {JSON.stringify(tonProof)}
-          </div>
-        )}
-      </MainWrapper>
+          <TonWallet nickname={nickname} type="passport" />
+
+          {passportProof && (
+            <div
+              style={{
+                fontSize: 14,
+              }}
+            >
+              <br />
+              {JSON.stringify(passportProof)}
+            </div>
+          )}
+
+          {tonProof && (
+            <div
+              style={{
+                fontSize: 14,
+              }}
+            >
+              <br />
+              {JSON.stringify(tonProof)}
+            </div>
+          )}
+        </Display>
+      </MainContainer>
     </>
   );
 };
 
 export default Main;
 
-const Input = styled.textarea`
-  width: 100%;
-  heigt: 200px;
+// const Input = styled.textarea`
+//   width: 100%;
+//   heigt: 200px;
 
-  border: none;
+//   border: none;
 
-  background-color: transparent;
-  ${({ theme }) => theme.fonts.Telegram_Title_3_1};
-  color: #45464f;
+//   background-color: transparent;
+//   ${({ theme }) => theme.fonts.Telegram_Title_3_1};
+//   color: #45464f;
 
-  &::placeholder {
-    color: #e5e5ea;
-  }
+//   &::placeholder {
+//     color: #e5e5ea;
+//   }
 
-  outline: none;
-`;
+//   outline: none;
+// `;
 const MainWrapper = styled.div`
   width: 100%;
   height: auto;

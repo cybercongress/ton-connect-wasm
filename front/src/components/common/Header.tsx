@@ -79,8 +79,8 @@ const HeaderWrapper = styled.header<{
   width: 100%;
   padding: 2rem 1.5rem;
 
-  background-color: ${({ $backgroundType }) =>
-    $backgroundType ? "#f2f2f7" : "#fff"};
+  /* background-color: ${({ $backgroundType }) =>
+    $backgroundType ? "#f2f2f7" : "#fff"}; */
 `;
 
 const HeaderRightBox = styled.div`

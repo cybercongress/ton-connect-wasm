@@ -6,6 +6,7 @@ import IcWalletDisconnect from "../../assets/icons/Landing/ic_wallet_disconnect.
 
 import useTonConnect from "./../../hooks/contract/useTonConnect";
 import { toBase64, fromBase64, fromAscii, toAscii } from "@cosmjs/encoding";
+import Button from "./btnGrd";
 
 const TonWallet = ({ nickname, message, type }) => {
   const { connected, tonConnectUI } = useTonConnect();
@@ -43,23 +44,18 @@ const TonWallet = ({ nickname, message, type }) => {
   };
 
   return (
-    <TonWalletWrapper onClick={handleSwitchWalletFunction}>
-      <TonConnectStatusBox>
-        {connected ? (
-          <img src={IcWalletConnect} alt="connect" />
-        ) : (
-          <img src={IcWalletDisconnect} alt="disconnect" />
-        )}
-      </TonConnectStatusBox>
-      {connected ? (
-        ""
-      ) : (
-        // <TonConnectCenterBox> Create link</TonConnectCenterBox>
-        <TonConnectCenterBox>
-          {isPassportType ? "Passport" : "Text"} proof
-        </TonConnectCenterBox>
-      )}
+    // <TonWalletWrapper onClick={handleSwitchWalletFunction}>
 
+    <div
+      style={{
+        position: "relative",
+      }}
+    >
+      <Button onClick={handleSwitchWalletFunction}>
+        {/* <TonConnectCenterBox> */}
+        {isPassportType ? "Passport" : "Text"} proof
+        {/* </TonConnectCenterBox> */}
+      </Button>
       <p
         style={{
           position: "absolute",
@@ -68,15 +64,15 @@ const TonWallet = ({ nickname, message, type }) => {
       >
         {JSON.stringify(data)}
       </p>
-    </TonWalletWrapper>
+    </div>
   );
 };
 
 export default TonWallet;
 
 const TonWalletWrapper = styled.div`
-  display: flex;
-  justify-content: center;
+  /* display: flex; */
+  /* justify-content: center;
   align-items: center;
   position: relative;
 
@@ -86,12 +82,12 @@ const TonWalletWrapper = styled.div`
   padding: 0.5rem 0;
 
   border-radius: 2.4rem;
-  background-color: #1f53ff;
-  color: #f2f2f7;
-  ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium}
+  /* background-color: #1f53ff; */
+  /* color: #f2f2f7; */
+  /* ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium} */ */
 
-  filter: drop-shadow(0px 6px 10px rgba(94, 97, 98, 0.30));
-  cursor: pointer;
+  /* filter: drop-shadow(0px 6px 10px rgba(94, 97, 98, 0.30)); */
+  /* cursor: pointer; */
 `;
 
 const TonConnectStatusBox = styled.div`
