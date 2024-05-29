@@ -175,13 +175,14 @@ ${reset}
     color: white;
     font-size: 16px;
     font-family: 'Play';
+    text-transform: lowercase;
 
     @font-face {
   font-family: 'Play';
   src: url('./fonts/Play-Regular.ttf');
   font-weight: 400;
   font-style: normal;
-}
+    }
 
 }
 
