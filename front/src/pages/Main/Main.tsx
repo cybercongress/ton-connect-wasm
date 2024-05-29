@@ -8,7 +8,9 @@ import useTonConnect from "@/hooks/contract/useTonConnect";
 const tele = (window as any).Telegram.WebApp;
 
 const Main = () => {
-  const { address } = useTonConnect();
+  const { address, tonConnectUI, wallet } = useTonConnect();
+
+  const tonProof = wallet?.connectItems?.tonProof;
 
   useEffect(() => {
     if (tele) {
@@ -23,6 +25,18 @@ const Main = () => {
         <Header isOpen={false} text="CYBER-TON" backgroundType={false} />
         <Input placeholder="enter message..." />
         <TonWallet />
+
+        <br />
+
+        {tonProof && (
+          <div
+            style={{
+              fontSize: 14,
+            }}
+          >
+            {JSON.stringify(tonProof)}
+          </div>
+        )}
       </MainWrapper>
     </>
   );

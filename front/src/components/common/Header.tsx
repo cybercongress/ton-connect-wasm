@@ -20,6 +20,13 @@ const Header = (props: HeaderProps) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  tonConnectUI.setConnectRequestParameters({
+    state: "ready",
+    value: {
+      tonProof: "<your-proof-payload>",
+    },
+  });
+
   const handleModalState = () => {
     setIsOpenModal(!isOpenModal);
   };
@@ -41,9 +48,17 @@ const Header = (props: HeaderProps) => {
           {pathname === "/" && (
             <DisconnectButton $connect={connected}>
               {connected ? (
-                <img src={IcWalletDisconnect} alt="walletConnectDisconnect" onClick={handleModalState} />
+                <img
+                  src={IcWalletDisconnect}
+                  alt="walletConnectDisconnect"
+                  onClick={handleModalState}
+                />
               ) : (
-                <img src={IcWalletConnect} alt="walletConnect" onClick={() => tonConnectUI.connectWallet()} />
+                <img
+                  src={IcWalletConnect}
+                  alt="walletConnect"
+                  onClick={() => tonConnectUI.connectWallet()}
+                />
               )}
             </DisconnectButton>
           )}
@@ -71,7 +86,8 @@ const HeaderWrapper = styled.header<{
   width: 100%;
   padding: 2rem 1.5rem;
 
-  background-color: ${({ $backgroundType }) => ($backgroundType ? "#f2f2f7" : "#fff")};
+  background-color: ${({ $backgroundType }) =>
+    $backgroundType ? "#f2f2f7" : "#fff"};
 `;
 
 const HeaderRightBox = styled.div`
@@ -91,7 +107,10 @@ const DisconnectButton = styled.button<{ $connect: boolean }>`
 
   border: none;
   border-radius: 1.8rem;
-  background: ${({ $connect }) => ($connect ? `#2F3038` : `linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%)`)};
+  background: ${({ $connect }) =>
+    $connect
+      ? `#2F3038`
+      : `linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%)`};
 
   cursor: pointer;
 `;
@@ -119,7 +138,8 @@ const MenuButton = styled.button<{ $isOpen: boolean }>`
     &:nth-child(1) {
       top: ${({ $isOpen }) => ($isOpen ? "50%" : "35%")};
       left: 25%;
-      transform: ${({ $isOpen }) => ($isOpen ? "translateY(-50%) rotate(45deg)" : "none")};
+      transform: ${({ $isOpen }) =>
+        $isOpen ? "translateY(-50%) rotate(45deg)" : "none"};
     }
 
     &:nth-child(2) {
@@ -132,7 +152,8 @@ const MenuButton = styled.button<{ $isOpen: boolean }>`
     &:nth-child(3) {
       bottom: ${({ $isOpen }) => ($isOpen ? "50%" : "35%")};
       left: 25%;
-      transform: ${({ $isOpen }) => ($isOpen ? "translateY(50%) rotate(-45deg)" : "none")};
+      transform: ${({ $isOpen }) =>
+        $isOpen ? "translateY(50%) rotate(-45deg)" : "none"};
     }
   }
 
