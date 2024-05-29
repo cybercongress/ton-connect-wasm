@@ -81,6 +81,7 @@ const Main = () => {
               fontSize: 14,
             }}
           >
+            {/* @ts-ignore */}
             {fromAscii(fromBase64(tonProof?.proof?.payload))}
 
             <br />
