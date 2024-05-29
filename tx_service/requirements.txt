@@ -1,0 +1,3 @@
+flask
+cosmpy
+python-dotenv

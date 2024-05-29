@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      target: build
+    ports:
+      - '4000:5000'
+    volumes:
+      - .:/app
