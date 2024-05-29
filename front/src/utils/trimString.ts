@@ -1,6 +1,6 @@
 export const trimString = (address, firstArg, secondArg) => {
-  const first = firstArg || 3;
-  const second = secondArg || 8;
+  const first = firstArg || 11;
+  const second = secondArg || 4;
 
   if (address && address.length > 11) {
     return `${address.substring(0, first)}...${address.substring(

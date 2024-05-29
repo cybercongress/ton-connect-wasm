@@ -17,6 +17,7 @@ import MusicalAddress from "@/components/MusicalAddress/MusicalAddress";
 import Passport from "./Passport/Passport";
 import ActionBar from "@/components/ActionBar/ActionBar";
 import { sendProof } from "@/api/cyber";
+import { trimString } from "@/utils/trimString";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -169,7 +170,7 @@ const Main = () => {
   } else if (step === Steps.ADD_PASSPORT) {
     actionBarContent = (
       <>
-        your passport is {passport?.owner}
+        your passport is {trimString(passport?.owner)}
         <TonWallet nickname={nickname} type="passport" />
         {passportProof && (
           <div
