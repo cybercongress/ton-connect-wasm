@@ -170,7 +170,10 @@ ${reset}
   
 * {
     box-sizing: border-box;
+    /* color: white; */
 }
+
+
     
 `;
 

@@ -6,6 +6,9 @@ import TonWallet from "@/components/main/TonWallet";
 import useTonConnect from "@/hooks/contract/useTonConnect";
 import useCyberPassport from "@/hooks/useCyberPassport";
 import { fromAscii, fromBase64 } from "@cosmjs/encoding";
+import Stars from "@/components/stars";
+import Button from "@/components/main/btnGrd";
+import Display from "@/components/common/containerGradient/Display/Display";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -20,6 +23,7 @@ const Main = () => {
   const [nickname, setNickname] = useState("congress");
 
   console.log(wallet);
+  console.log("PK", wallet?.account?.publicKey);
 
   const tonProof = wallet?.connectItems?.tonProof;
 
@@ -65,6 +69,10 @@ const Main = () => {
   return (
     <>
       <MainWrapper>
+        {/* <Stars /> */}
+        {/* <Display>
+          <Button> dsls;lsd;</Button>
+        </Display> */}
         <Header isOpen={false} text="CYBER-TON" backgroundType={false} />
         <Input
           placeholder="enter message..."
