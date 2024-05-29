@@ -53,7 +53,7 @@ const TonWallet = ({ nickname, message, type }) => {
     >
       <Button onClick={handleSwitchWalletFunction}>
         {/* <TonConnectCenterBox> */}
-        {isPassportType ? "Passport" : "Text"} proof
+        {isPassportType ? "Add passport" : "Cyberlink"}
         {/* </TonConnectCenterBox> */}
       </Button>
       <p

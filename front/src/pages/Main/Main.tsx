@@ -83,32 +83,6 @@ const Main = () => {
         </Display> */}
         <Header isOpen={false} text="CYBER-TON" backgroundType={false} />
 
-        <Display title={<DisplayTitle title="Message" />}>
-          <Input
-            placeholder="enter message..."
-            value={message}
-            onChange={(e) => {
-              if (connected) {
-                tonConnectUI.disconnect();
-              }
-
-              setMessage(e.target.value);
-            }}
-          />
-          <TonWallet message={message} nickname={nickname} type="text" />
-
-          {textProof && (
-            <div
-              style={{
-                fontSize: 14,
-              }}
-            >
-              <br />
-              {JSON.stringify(textProof)}
-            </div>
-          )}
-        </Display>
-
         <Display title={<DisplayTitle title="Passport" />}>
           <Input
             value={nickname}
@@ -149,18 +123,35 @@ const Main = () => {
               {JSON.stringify(passportProof)}
             </div>
           )}
-
-          {tonProof && (
-            <div
-              style={{
-                fontSize: 14,
-              }}
-            >
-              <br />
-              {JSON.stringify(tonProof)}
-            </div>
-          )}
         </Display>
+
+        {passportProof && (
+          <Display title={<DisplayTitle title="Message" />}>
+            <Input
+              placeholder="enter message..."
+              value={message}
+              onChange={(e) => {
+                if (connected) {
+                  tonConnectUI.disconnect();
+                }
+
+                setMessage(e.target.value);
+              }}
+            />
+            <TonWallet message={message} nickname={nickname} type="text" />
+
+            {textProof && (
+              <div
+                style={{
+                  fontSize: 14,
+                }}
+              >
+                <br />
+                {JSON.stringify(textProof)}
+              </div>
+            )}
+          </Display>
+        )}
       </MainContainer>
     </>
   );
