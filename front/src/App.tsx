@@ -6,6 +6,7 @@ import { network } from "@/hooks/contract/useTonClient";
 import GlobalStyle from "@/styles/globalStyles";
 import theme from "@/styles/theme";
 import QueryClientProvider2 from "./queryClient";
+import "./styles/index.scss";
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 

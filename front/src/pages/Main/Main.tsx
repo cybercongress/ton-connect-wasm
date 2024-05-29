@@ -15,14 +15,24 @@ import DisplayTitle from "@/components/common/containerGradient/DisplayTitle/Dis
 import { Citizenship } from "@/types";
 import MusicalAddress from "@/components/MusicalAddress/MusicalAddress";
 import Passport from "./Passport/Passport";
+import ActionBar from "@/components/ActionBar/ActionBar";
 
 const tele = (window as any).Telegram.WebApp;
+
+enum Steps {
+  INITIAL,
+  ENTER_PASSPORT,
+  ADD_PASSPORT,
+  ENTER_MESSAGE,
+}
 
 const Main = () => {
   const { address, tonConnectUI, wallet, connected } = useTonConnect();
 
   const [passportProof, setPassportProof] = useState();
   const [textProof, setTextProof] = useState();
+
+  const [step, setStep] = useState(Steps.INITIAL);
 
   const [message, setMessage] = useState("");
 
@@ -68,39 +78,117 @@ const Main = () => {
   const passport = dat2 as Citizenship;
 
   useEffect(() => {
+    if (passport) {
+      setStep(Steps.ADD_PASSPORT);
+    }
+  }, [passport]);
+
+  useEffect(() => {
+    if (passportProof) {
+      setStep(Steps.ENTER_MESSAGE);
+    }
+  }, [passportProof]);
+
+  useEffect(() => {
     if (tele) {
       tele.ready();
       tele.BackButton.hide();
     }
   }, []);
 
+  let centerContent;
+  let actionBarContent;
+  if (step === Steps.INITIAL) {
+    actionBarContent = (
+      <Button onClick={() => setStep(Steps.ENTER_PASSPORT)}>
+        Add passport
+      </Button>
+    );
+
+    centerContent = (
+      <>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
+        doloremque quos cum, itaque soluta suscipit totam minima, nemo impedit
+        provident iure deserunt ducimus fugiat velit ex mollitia repellat
+        tempora. Illo qui praesentium ducimus consequuntur nemo nihil! Ex ipsum
+        natus vitae vel maxime impedit fuga tempore architecto quae minima omnis
+        eius possimus quis quos tempora repudiandae veniam, optio provident
+        nesciunt dolore iusto eligendi. Sunt, similique? Ullam atque repellat
+        itaque vel illum! Totam corporis aliquam dicta expedita doloribus qui id
+        nisi quisquam tempore perferendis, praesentium alias quia dignissimos
+        facilis rem sequi, quae ratione consequuntur itaque. Itaque id illum
+        quisquam, reprehenderit harum consequatur.
+      </>
+    );
+  } else if (step === Steps.ENTER_PASSPORT) {
+    actionBarContent = (
+      <>
+        <Input
+          value={nickname}
+          placeholder="enter passport..."
+          onChange={(e) => {
+            const value = e.target.value;
+
+            if (connected) {
+              tonConnectUI.disconnect();
+            }
+
+            setNickname(value);
+          }}
+        />
+
+        <Button onClick={fetchData}>load passport</Button>
+      </>
+    );
+  } else if (step === Steps.ADD_PASSPORT) {
+    actionBarContent = (
+      <>
+        your passport is {passport?.owner}
+        <TonWallet nickname={nickname} type="passport" />
+        {passportProof && (
+          <div
+            style={{
+              fontSize: 14,
+            }}
+          >
+            <br />
+            {JSON.stringify(passportProof)}
+          </div>
+        )}
+      </>
+    );
+  } else if (step === Steps.ENTER_MESSAGE) {
+    actionBarContent = (
+      <>
+        <Input
+          color="pink"
+          placeholder="enter message..."
+          value={message}
+          onChange={(e) => {
+            if (connected) {
+              tonConnectUI.disconnect();
+            }
+
+            setMessage(e.target.value);
+          }}
+        />
+        <TonWallet message={message} nickname={nickname} type="text" />
+      </>
+    );
+  }
+
+  console.log(step);
+
   return (
     <>
       <MainContainer>
         <Stars />
-        {/* <Display>
-          <Button> dsls;lsd;</Button>
-        </Display> */}
         <Header isOpen={false} text="CYBER-TON" backgroundType={false} />
 
-        <Display title={<DisplayTitle title="Passport" />}>
-          <Input
-            value={nickname}
-            placeholder="enter passport..."
-            onChange={(e) => {
-              const value = e.target.value;
+        {centerContent}
 
-              if (connected) {
-                tonConnectUI.disconnect();
-              }
-
-              setNickname(value);
-            }}
-          />
-
-          <Button onClick={fetchData}>load passport</Button>
-
-          {passport && (
+        {passport && (
+          <Display title={<DisplayTitle title="Passport" />}>
             <div
               style={{
                 fontSize: 14,
@@ -109,50 +197,25 @@ const Main = () => {
             >
               <Passport passport={passport} />
             </div>
-          )}
-
-          <TonWallet nickname={nickname} type="passport" />
-
-          {passportProof && (
-            <div
-              style={{
-                fontSize: 14,
-              }}
-            >
-              <br />
-              {JSON.stringify(passportProof)}
-            </div>
-          )}
-        </Display>
-
-        {passportProof && (
-          <Display title={<DisplayTitle title="Message" />}>
-            <Input
-              placeholder="enter message..."
-              value={message}
-              onChange={(e) => {
-                if (connected) {
-                  tonConnectUI.disconnect();
-                }
-
-                setMessage(e.target.value);
-              }}
-            />
-            <TonWallet message={message} nickname={nickname} type="text" />
-
-            {textProof && (
-              <div
-                style={{
-                  fontSize: 14,
-                }}
-              >
-                <br />
-                {JSON.stringify(textProof)}
-              </div>
-            )}
           </Display>
         )}
+
+        <ActionBar>{actionBarContent}</ActionBar>
       </MainContainer>
+
+      {textProof && (
+        <Display>
+          <DisplayTitle title="Message" />
+          <div
+            style={{
+              fontSize: 14,
+              wordBreak: "break-all",
+            }}
+          >
+            {JSON.stringify(textProof)}
+          </div>
+        </Display>
+      )}
     </>
   );
 };

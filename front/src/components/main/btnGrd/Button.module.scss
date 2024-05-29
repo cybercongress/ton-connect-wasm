@@ -9,7 +9,7 @@ $color-text: #36d6ae;
 }
 
 @mixin ion-lamp {
-  content: '';
+  content: "";
   position: absolute;
   background: #ffffff;
   border: 1.5px solid #ffffff;
@@ -21,7 +21,7 @@ $color-text: #36d6ae;
 }
 
 @mixin styleGradientPseudoEl {
-  content: '';
+  content: "";
   position: absolute;
   height: 100%;
   width: 50px;
@@ -46,6 +46,10 @@ $color-text: #36d6ae;
   height: 52px;
   min-width: 217px;
   font-size: 18px;
+
+  > * {
+    color: inherit;
+  }
 
   &:hover {
     color: #40ecc1;
