@@ -11,6 +11,7 @@ import Button from "@/components/main/btnGrd";
 import Display from "@/components/common/containerGradient/Display/Display";
 import MainContainer from "@/components/MainContainer";
 import { Input } from "@/components/Input";
+import DisplayTitle from "@/components/common/containerGradient/DisplayTitle/DisplayTitle";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -77,7 +78,7 @@ const Main = () => {
         </Display> */}
         <Header isOpen={false} text="CYBER-TON" backgroundType={false} />
 
-        <Display>
+        <Display title={<DisplayTitle title="Message" />}>
           <Input
             placeholder="enter message..."
             value={message}
@@ -103,7 +104,7 @@ const Main = () => {
           )}
         </Display>
 
-        <Display>
+        <Display title={<DisplayTitle title="Passport" />}>
           <Input
             value={nickname}
             placeholder="enter passport..."

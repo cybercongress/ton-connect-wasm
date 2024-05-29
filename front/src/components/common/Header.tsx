@@ -75,6 +75,7 @@ const HeaderWrapper = styled.header<{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 100;
 
   width: 100%;
   padding: 2rem 1.5rem;
@@ -156,7 +157,7 @@ const HeaderTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  color: #2c3542;
+  /* color: #2c3542; */
   ${({ theme }) => theme.fonts.Nexton_Title_Medium};
 
   cursor: pointer;

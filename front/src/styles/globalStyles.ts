@@ -87,7 +87,7 @@ export const reset = css`
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 62.5%;
+
     vertical-align: baseline;
   }
 
@@ -134,6 +134,7 @@ export const reset = css`
     border-spacing: 0;
   }
   button {
+    padding: 0;
     cursor: pointer;
   }
 `;
@@ -177,7 +178,7 @@ ${reset}
 
     @font-face {
   font-family: 'Play';
-  src: url('../assets/fonts/Play-Regular.ttf');
+  src: url('./fonts/Play-Regular.ttf');
   font-weight: 400;
   font-style: normal;
 }
