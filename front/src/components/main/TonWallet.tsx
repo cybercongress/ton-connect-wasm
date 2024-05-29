@@ -56,14 +56,14 @@ const TonWallet = ({ nickname, message, type }) => {
         {isPassportType ? "Add passport" : "Cyberlink"}
         {/* </TonConnectCenterBox> */}
       </Button>
-      <p
+      {/* <p
         style={{
           position: "absolute",
           bottom: "-5px",
         }}
       >
         {JSON.stringify(data)}
-      </p>
+      </p> */}
     </div>
   );
 };
