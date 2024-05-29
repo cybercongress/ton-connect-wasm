@@ -211,6 +211,10 @@ const Main = () => {
         <Stars />
         <Header isOpen={false} text="CYBER-TON" backgroundType={false} />
 
+        <Button onClick={() => setStep(Steps.ENTER_MESSAGE)}>
+          To cyberlink step
+        </Button>
+
         {centerContent}
 
         {passport && (
@@ -226,22 +230,22 @@ const Main = () => {
           </Display>
         )}
 
+        {textProof && (
+          <Display>
+            <DisplayTitle title="Message" />
+            <div
+              style={{
+                fontSize: 14,
+                wordBreak: "break-all",
+              }}
+            >
+              {JSON.stringify(textProof)}
+            </div>
+          </Display>
+        )}
+
         <ActionBar>{actionBarContent}</ActionBar>
       </MainContainer>
-
-      {textProof && (
-        <Display>
-          <DisplayTitle title="Message" />
-          <div
-            style={{
-              fontSize: 14,
-              wordBreak: "break-all",
-            }}
-          >
-            {JSON.stringify(textProof)}
-          </div>
-        </Display>
-      )}
     </>
   );
 };
