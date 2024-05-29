@@ -219,7 +219,7 @@ const Main = () => {
         {centerContent}
 
         {passport && (
-          <Display title={<DisplayTitle title="Passport" />}>
+          <Display title={<DisplayTitle title="moon passport" />}>
             <div
               style={{
                 fontSize: 14,
@@ -232,8 +232,7 @@ const Main = () => {
         )}
 
         {textProof && (
-          <Display>
-            <DisplayTitle title="Message" />
+          <Display title={<DisplayTitle title="message" />}>
             <div
               style={{
                 fontSize: 14,
