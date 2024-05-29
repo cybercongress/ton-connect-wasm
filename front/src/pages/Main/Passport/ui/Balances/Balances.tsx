@@ -3,6 +3,7 @@ import { Denom } from "./type";
 import { DenomListKey, configDenom } from "./utils/configDenom";
 import styles from "./Balances.module.scss";
 import { formatNumber } from "./utils/formatNumber";
+import TitleItem from "../TitleItem/TitleItem";
 
 function BalancesItem({
   amount,
@@ -32,10 +33,9 @@ function Balances({ address }: { address: string }) {
     });
 
     return (
-      <div className={styles.wrapper}>
-        <span className={styles.title}>balances</span>
-        <div className={styles.wrapperList}>{renderItem}</div>
-      </div>
+      <TitleItem title="Balances">
+        <div className={styles.wrapper}>{renderItem}</div>
+      </TitleItem>
     );
   }
 

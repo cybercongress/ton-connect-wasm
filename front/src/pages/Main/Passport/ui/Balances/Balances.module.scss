@@ -1,19 +1,6 @@
-$size-title: 14px;
 $size-item-text: 16px;
 
 .wrapper {
-  display: grid;
-  gap: 15px;
-
-  .title {
-    text-align: center;
-    font-size: $size-title;
-    color: #616161;
-  }
-
-}
-
-.wrapperList {
   display: grid;
   gap: 20px;
 }
