@@ -1832,4 +1832,4 @@ ${JY}
     font-style: normal;
     font-weight: 800;
     line-height: 1.6rem;
-  `},tQ={fonts:eQ};console.log(`You're connected to the ${QY} network!`);const nQ=()=>nt.jsx(iF,{theme:tQ,children:nt.jsxs(iD,{children:[nt.jsx(XY,{}),nt.jsx(BV,{})]})}),rQ="https://??????/config.json";mg.createRoot(document.getElementById("root")).render(nt.jsx(OM,{manifestUrl:rQ,children:nt.jsx(nQ,{})}));
+  `},tQ={fonts:eQ};console.log(`You're connected to the ${QY} network!`);const nQ=()=>nt.jsx(iF,{theme:tQ,children:nt.jsxs(iD,{children:[nt.jsx(XY,{}),nt.jsx(BV,{})]})}),rQ="https://ton-wasm-cyber-hackathon.netlify.app/tonconnect-manifest.json";mg.createRoot(document.getElementById("root")).render(nt.jsx(OM,{manifestUrl:rQ,children:nt.jsx(nQ,{})}));
