@@ -16,6 +16,7 @@ import { Citizenship } from "@/types";
 import MusicalAddress from "@/components/MusicalAddress/MusicalAddress";
 import Passport from "./Passport/Passport";
 import ActionBar from "@/components/ActionBar/ActionBar";
+import { sendProof } from "@/api/cyber";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -43,6 +44,31 @@ const Main = () => {
 
   const tonProof = wallet?.connectItems?.tonProof;
 
+  console.log("tonProof", tonProof);
+
+  async function sendProofCall() {
+    try {
+      const { address, publicKey } = wallet.account || {};
+
+      const d = {
+        proof: {
+          proof: {
+            ...tonProof.proof,
+            state_init: "",
+          },
+          network: "-239",
+          address,
+        },
+        pubkey: publicKey,
+      };
+      const data = await sendProof(d);
+
+      console.log(data.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   // @ts-ignore
   const body = tonProof && fromAscii(fromBase64(tonProof?.proof?.payload));
 
@@ -53,7 +79,7 @@ const Main = () => {
     const data = p.msg_data;
 
     if (type === "map_nickname" && !passportProof) {
-      debugger;
+      sendProofCall();
       setPassportProof({
         ...tonProof,
         data: p,
@@ -62,7 +88,7 @@ const Main = () => {
     }
 
     if (type === "add_post" && !textProof) {
-      debugger;
+      sendProofCall();
       setTextProof({
         ...tonProof,
         data: p,
