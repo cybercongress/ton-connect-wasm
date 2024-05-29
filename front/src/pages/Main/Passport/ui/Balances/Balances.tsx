@@ -4,20 +4,24 @@ import { DenomListKey, configDenom } from "./utils/configDenom";
 import styles from "./Balances.module.scss";
 import TitleItem from "../TitleItem/TitleItem";
 import { formatNumber } from "@/utils/formatNumber";
+import BigNumber from "bignumber.js";
+import { getDisplayAmount } from "@/utils/getDisplayAmount";
 
 function BalancesItem({
   amount,
-  denom,
+  denomValue,
 }: {
   amount?: any;
-  denom: DenomListKey;
+  denomValue: DenomListKey;
 }) {
+  const { denom, coinDecimals, img } = configDenom[denomValue];
+
   return (
     <div className={styles.wrapperItem}>
-      <span className={styles.denom}>{configDenom[denom].denom}</span>
+      <span className={styles.denom}>{denom}</span>
       <div className={styles.amount}>
-        <span>{formatNumber(amount || 0)}</span>
-        <img src={configDenom[denom].img} alt={denom} />
+        <span>{formatNumber(getDisplayAmount(amount || 0, coinDecimals))}</span>
+        <img src={img} alt={denom} />
       </div>
     </div>
   );
@@ -32,7 +36,7 @@ function Balances({ address }: { address: string }) {
 
   const renderItem = Object.keys(Denom).map((key: DenomListKey) => {
     const { amount } = data.find((item) => item.denom === key);
-    return <BalancesItem key={key} denom={key} amount={amount} />;
+    return <BalancesItem key={key} denomValue={key} amount={amount} />;
   });
 
   return (
