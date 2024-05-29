@@ -157,6 +157,7 @@ const HeaderTitle = styled.div`
   display: flex;
   align-items: center;
   gap: 0.6rem;
+  color: #36d6ae;
   /* color: #2c3542; */
   ${({ theme }) => theme.fonts.Nexton_Title_Medium};
 
