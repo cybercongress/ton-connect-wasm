@@ -1,0 +1,4 @@
+flask
+cosmpy
+python-dotenv
+gunicorn
