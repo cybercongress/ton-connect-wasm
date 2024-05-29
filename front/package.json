@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@aws-crypto/sha256-js": "^5.0.0",
+    "@cosmjs/encoding": "^0.32.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
