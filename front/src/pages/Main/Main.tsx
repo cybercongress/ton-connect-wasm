@@ -43,9 +43,7 @@ const Main = () => {
 
   const [message, setMessage] = useState("");
 
-  const [txHash, setTxHash] = useState(
-    "0B95D616B429988F1E198F6AD99F9FA29E29A64C9E76E81992796F3F0E9D97B6"
-  );
+  const [txHash, setTxHash] = useState();
 
   const lastPassport = localStorage.getItem(LS_KEY) || "";
   const [nickname, setNickname] = useState(lastPassport);
