@@ -38,7 +38,9 @@ const Header = (props: HeaderProps) => {
     <>
       {isOpenModal && <Modal handleModalState={handleModalState} />}
       <HeaderWrapper $isOpen={isOpen} $backgroundType={backgroundType}>
-        <HeaderTitle onClick={() => navigate("/")}>{text}</HeaderTitle>
+        <HeaderTitle onClick={() => navigate("/")}>
+          cyber <br /> ton
+        </HeaderTitle>
 
         <HeaderRightBox>
           {address && trimString(address, 6, 4)}
@@ -99,9 +101,9 @@ const DisconnectButton = styled.button<{ $connect: boolean }>`
   justify-content: center;
   align-items: center;
 
-  width: 4.4rem;
-  height: 4.4rem;
-  padding: 1.2rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0.8rem;
 
   color: #36d6ae;
   border: none;
@@ -112,7 +114,7 @@ const DisconnectButton = styled.button<{ $connect: boolean }>`
       ? `#2F3038`
       : `linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%)`}; */
 
-  cursor: pointer;
+  /* cursor: pointer; */
 `;
 
 const MenuButton = styled.button<{ $isOpen: boolean }>`

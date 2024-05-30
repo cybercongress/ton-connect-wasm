@@ -20,6 +20,8 @@ import { sendProof } from "@/api/cyber";
 import { trimString } from "@/utils/trimString";
 import styles from "./Main.module.scss";
 import Posts from "./Posts/Posts";
+import { useQueryClientPussy } from "@/queryClientPussy";
+import { useQuery } from "@tanstack/react-query";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -30,8 +32,6 @@ enum Steps {
   ENTER_MESSAGE,
   TX,
 }
-
-const LS_KEY = "lastPassport";
 
 const Main = () => {
   const { address, tonConnectUI, wallet, connected } = useTonConnect();
@@ -44,10 +44,28 @@ const Main = () => {
 
   const [message, setMessage] = useState("");
 
+  const client = useQueryClientPussy();
+
+  const publicKey = wallet?.account?.publicKey;
+  const contractQuery = useQuery({
+    queryKey: ["passport", publicKey],
+    // refetchInterval: 10 * 1000,
+    queryFn: async () => {
+      return client!.queryContractSmart(
+        "pussy15s8v0pa5g60uhvmjpfj73p6nem6t597e8qnkgpsuck5tje3se7ps3ll7kl",
+        {
+          get_nickname: {
+            pubkey: publicKey,
+          },
+        }
+      );
+    },
+    enabled: !!publicKey,
+  });
+
   const [txHash, setTxHash] = useState();
 
-  const lastPassport = localStorage.getItem(LS_KEY) || "";
-  const [nickname, setNickname] = useState(lastPassport);
+  const [nickname, setNickname] = useState();
 
   console.log(wallet);
   console.log("PK", wallet?.account?.publicKey);
@@ -115,30 +133,43 @@ const Main = () => {
     nickname,
   });
 
+  useEffect(() => {
+    if (contractQuery.data) {
+      const nick = contractQuery.data;
+      if (nick !== nickname) {
+        setNickname(nick);
+
+        setTimeout(() => {
+          fetchData(nick);
+        }, 1000);
+      }
+
+      setStep(Steps.ENTER_MESSAGE);
+    }
+  }, [contractQuery.data, nickname, fetchData]);
+
   const passport = dat2 as Citizenship;
 
-  useEffect(() => {
-    if (lastPassport) {
-      if (!(passport && passport.extension.nickname === lastPassport)) {
-        fetchData();
-      }
+  console.log(passport);
 
-      if (passport) {
-        setStep(Steps.ENTER_MESSAGE);
-      }
+  // useEffect(() => {
+  //   if (lastPassport) {
 
-      return;
-    }
+  //     if (passport) {
+  //       setStep(Steps.ENTER_MESSAGE);
+  //     }
 
-    if (passport) {
-      setStep(Steps.ADD_PASSPORT);
-    }
-  }, [lastPassport, passport]);
+  //     return;
+  //   }
+
+  //   if (passport) {
+  //     setStep(Steps.ADD_PASSPORT);
+  //   }
+  // }, [lastPassport, passport]);
 
   useEffect(() => {
     if (passportProof) {
       setStep(Steps.ENTER_MESSAGE);
-      localStorage.setItem(LS_KEY, passport.extension.nickname);
     }
   }, [passportProof, passport]);
 
