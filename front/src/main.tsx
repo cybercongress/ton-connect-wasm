@@ -13,7 +13,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     manifestUrl={manifestUrl}
     actionsConfiguration={{
       // returnStrategy: "https://t.me/awesome_cyber_bot",
-      returnStrategy: "https://t.me/awesome_cyber_bot/tonconnectwasm",
+      //      // returnStrategy: "https://ton-wasm-cyber-hackathon.netlify.app",
+      returnStrategy: "https://ton-wasm-cyber-hackathon.netlify.app",
       twaReturnUrl: "https://t.me/awesome_cyber_bot/tonconnectwasm",
     }}
   >
