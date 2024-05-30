@@ -14,7 +14,7 @@ export function useQueryClientPussy() {
 
 function QueryClientProvider({ children }: { children: React.ReactNode }) {
   const { data, error, isFetching } = useQuery({
-    queryKey: ["cyberClient", "connect"],
+    queryKey: ["cyberClient", "connect-pussy"],
     queryFn: async () => {
       return CyberClient.connect(RPC_URL);
     },
