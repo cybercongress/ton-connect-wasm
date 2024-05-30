@@ -6,6 +6,7 @@ import IcWalletConnect from "../../assets/icons/Landing/ic_landing_wallet.svg";
 import IcWalletDisconnect from "../../assets/icons/Landing/ic_landing_wallet_disconnect.svg";
 import useTonConnect from "../../hooks/contract/useTonConnect";
 import Modal from "../main/Modal/Modal";
+import { trimString } from "@/utils/trimString";
 
 interface HeaderProps {
   isOpen: boolean;
@@ -14,7 +15,7 @@ interface HeaderProps {
 }
 
 const Header = (props: HeaderProps) => {
-  const { connected, tonConnectUI } = useTonConnect();
+  const { connected, tonConnectUI, wallet } = useTonConnect();
   const { isOpen, text, backgroundType } = props;
   const [isOpenModal, setIsOpenModal] = useState(false);
   const navigate = useNavigate();
@@ -32,13 +33,16 @@ const Header = (props: HeaderProps) => {
     }
   };
 
+  const { address } = wallet?.account || {};
   return (
     <>
       {isOpenModal && <Modal handleModalState={handleModalState} />}
       <HeaderWrapper $isOpen={isOpen} $backgroundType={backgroundType}>
         <HeaderTitle onClick={() => navigate("/")}>{text}</HeaderTitle>
+
         <HeaderRightBox>
-          {/* {pathname === "/" && (
+          {address && trimString(address, 6, 4)}
+          {pathname === "/" && (
             <DisconnectButton $connect={connected}>
               {connected ? (
                 <img
@@ -54,7 +58,7 @@ const Header = (props: HeaderProps) => {
                 />
               )}
             </DisconnectButton>
-          )} */}
+          )}
           <MenuButton onClick={handleRouter} $isOpen={isOpen}>
             <span></span>
             <span></span>
@@ -99,12 +103,14 @@ const DisconnectButton = styled.button<{ $connect: boolean }>`
   height: 4.4rem;
   padding: 1.2rem;
 
+  color: #36d6ae;
   border: none;
   border-radius: 1.8rem;
-  background: ${({ $connect }) =>
+  background: transparent;
+  /* background: ${({ $connect }) =>
     $connect
       ? `#2F3038`
-      : `linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%)`};
+      : `linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%)`}; */
 
   cursor: pointer;
 `;

@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 
 import IcWalletDisconnect from "@/assets/icons/Landing/ic_landing_wallet_disconnect.svg";
 import ModalWrapper from "@/components/common/Modal/ModalWrapper";
+import Button from "../btnGrd";
 
 interface ModalProps {
   handleModalState: () => void;
@@ -27,12 +28,13 @@ const Modal = (props: ModalProps) => {
           <p>from CYBER-TON.</p>
         </ModalDesc>
         <ModalButtonWrapper>
-          <ModalButton type="yes" onClick={clearStorage}>
+          <Button type="yes" onClick={clearStorage}>
             Yes
-          </ModalButton>
-          <ModalButton type="no" onClick={handleModalState}>
+          </Button>
+
+          <Button type="no" onClick={handleModalState}>
             Not Now
-          </ModalButton>
+          </Button>
         </ModalButtonWrapper>
       </ModalWhiteBox>
     </ModalWrapper>

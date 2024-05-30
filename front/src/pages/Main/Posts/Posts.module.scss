@@ -1,0 +1,10 @@
+.wrapper {
+  display: grid;
+  gap: 20px 20px;
+
+  > div {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+}

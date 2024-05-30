@@ -30,6 +30,8 @@ const TonWallet = ({ nickname, message, type }) => {
     if (connected) {
       console.log(">>> Send message to bacend");
     } else {
+      tonConnectUI.disconnect();
+
       const d = toBase64(toAscii(data));
 
       tonConnectUI.setConnectRequestParameters({
@@ -53,7 +55,7 @@ const TonWallet = ({ nickname, message, type }) => {
     >
       <Button onClick={handleSwitchWalletFunction}>
         {/* <TonConnectCenterBox> */}
-        {isPassportType ? "Add passport" : "Cyberlink"}
+        {isPassportType ? "Link passport" : "Cyberlink"}
         {/* </TonConnectCenterBox> */}
       </Button>
       {/* <p

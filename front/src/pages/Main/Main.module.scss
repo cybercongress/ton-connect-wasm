@@ -13,3 +13,12 @@
     opacity: 0.8;
   }
 }
+
+.tx {
+  color: var(--primary-color);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

@@ -19,6 +19,7 @@ import ActionBar from "@/components/ActionBar/ActionBar";
 import { sendProof } from "@/api/cyber";
 import { trimString } from "@/utils/trimString";
 import styles from "./Main.module.scss";
+import Posts from "./Posts/Posts";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -27,6 +28,7 @@ enum Steps {
   ENTER_PASSPORT,
   ADD_PASSPORT,
   ENTER_MESSAGE,
+  TX,
 }
 
 const LS_KEY = "lastPassport";
@@ -40,6 +42,10 @@ const Main = () => {
   const [step, setStep] = useState(Steps.INITIAL);
 
   const [message, setMessage] = useState("");
+
+  const [txHash, setTxHash] = useState(
+    "0B95D616B429988F1E198F6AD99F9FA29E29A64C9E76E81992796F3F0E9D97B6"
+  );
 
   const lastPassport = localStorage.getItem(LS_KEY) || "";
   const [nickname, setNickname] = useState(lastPassport);
@@ -69,6 +75,9 @@ const Main = () => {
       const data = await sendProof(d);
 
       console.log(data.data);
+      const tx = data.data.tx.hash;
+
+      setTxHash(tx);
     } catch (error) {
       console.error(error);
     }
@@ -89,7 +98,6 @@ const Main = () => {
         ...tonProof,
         data: p,
       });
-      tonConnectUI.disconnect();
     }
 
     if (type === "add_post" && !textProof) {
@@ -98,7 +106,7 @@ const Main = () => {
         ...tonProof,
         data: p,
       });
-      tonConnectUI.disconnect();
+      setMessage("");
     }
   }
 
@@ -159,10 +167,6 @@ const Main = () => {
           onChange={(e) => {
             const value = e.target.value;
 
-            if (connected) {
-              tonConnectUI.disconnect();
-            }
-
             setNickname(value);
           }}
         />
@@ -188,23 +192,39 @@ const Main = () => {
       </>
     );
   } else if (step === Steps.ENTER_MESSAGE) {
-    actionBarContent = (
-      <>
-        <Input
-          color="pink"
-          placeholder="enter message..."
-          value={message}
-          onChange={(e) => {
-            if (connected) {
-              tonConnectUI.disconnect();
-            }
+    centerContent = <Posts publicKey={wallet?.account?.publicKey || ""} />;
 
-            setMessage(e.target.value);
-          }}
-        />
-        <TonWallet message={message} nickname={nickname} type="text" />
-      </>
-    );
+    if (txHash) {
+      actionBarContent = (
+        <>
+          <a
+            className={styles.tx}
+            target="_blank"
+            rel="noreferrer noopener"
+            href={"https://spacepussy.ai/network/bostrom/tx/" + txHash}
+          >
+            {" "}
+            {trimString(txHash, 6, 6)}
+          </a>
+
+          <Button onClick={() => setTxHash(null)}>Close</Button>
+        </>
+      );
+    } else {
+      actionBarContent = (
+        <>
+          <Input
+            color="pink"
+            placeholder="enter message..."
+            value={message}
+            onChange={(e) => {
+              setMessage(e.target.value);
+            }}
+          />
+          <TonWallet message={message} nickname={nickname} type="text" />
+        </>
+      );
+    }
   }
 
   console.log(step);
