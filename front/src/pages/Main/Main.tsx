@@ -180,7 +180,7 @@ const Main = () => {
       </Button>
     );
 
-    centerContent = <>hi to user, what is passport, what to do here</>;
+    centerContent = <>add moon passport</>;
   } else if (step === Steps.ENTER_PASSPORT) {
     actionBarContent = (
       <>
