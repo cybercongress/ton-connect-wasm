@@ -180,7 +180,37 @@ const Main = () => {
       </Button>
     );
 
-    centerContent = <>add moon passport</>;
+    centerContent = (
+      <Display>
+        <div className={styles.info}>
+          Hello hacker!
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          Use your <strong>moon passport</strong> from{" "}
+          <a
+            style={{
+              color: "#36d6ae",
+              textDecoration: "none",
+            }}
+            href="https://cyb.ai"
+          >
+            cyb.ai
+          </a>{" "}
+          to start posting with{" "}
+          <span
+            style={{
+              color: "#24A1DE",
+            }}
+          >
+            telegram
+          </span>
+          !
+        </div>
+      </Display>
+    );
   } else if (step === Steps.ENTER_PASSPORT) {
     actionBarContent = (
       <>
