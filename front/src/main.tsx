@@ -14,8 +14,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     actionsConfiguration={{
       // returnStrategy: "https://t.me/awesome_cyber_bot",
       //      // returnStrategy: "https://ton-wasm-cyber-hackathon.netlify.app",
-      // returnStrategy: "https://ton-wasm-cyber-hackathon.netlify.app",
-      twaReturnUrl: "https://t.me/awesome_cyber_bot/tonconnectwasm",
+      returnStrategy: "back",
+      // twaReturnUrl: "https://t.me/awesome_cyber_bot/tonconnectwasm",
       skipRedirectToWallet: "never",
     }}
   >
