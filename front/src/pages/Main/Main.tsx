@@ -306,7 +306,7 @@ const Main = () => {
           </Display>
         )}
 
-        {textProof && (
+        {/* {textProof && (
           <Display title={<DisplayTitle title="message" />}>
             <div
               style={{
@@ -317,7 +317,7 @@ const Main = () => {
               {JSON.stringify(textProof)}
             </div>
           </Display>
-        )}
+        )} */}
 
         <ActionBar>{actionBarContent}</ActionBar>
       </MainContainer>
