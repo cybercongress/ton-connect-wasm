@@ -152,20 +152,11 @@ const Main = () => {
 
   console.log(passport);
 
-  // useEffect(() => {
-  //   if (lastPassport) {
-
-  //     if (passport) {
-  //       setStep(Steps.ENTER_MESSAGE);
-  //     }
-
-  //     return;
-  //   }
-
-  //   if (passport) {
-  //     setStep(Steps.ADD_PASSPORT);
-  //   }
-  // }, [lastPassport, passport]);
+  useEffect(() => {
+    if (passport) {
+      setStep(Steps.ADD_PASSPORT);
+    }
+  }, [passport]);
 
   useEffect(() => {
     if (passportProof) {
