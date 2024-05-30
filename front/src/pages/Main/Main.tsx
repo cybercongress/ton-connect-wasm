@@ -38,6 +38,7 @@ const Main = () => {
 
   const [passportProof, setPassportProof] = useState();
   const [textProof, setTextProof] = useState();
+  const [apiLoading, setApiLoading] = useState(false);
 
   const [step, setStep] = useState(Steps.INITIAL);
 
@@ -57,6 +58,7 @@ const Main = () => {
 
   async function sendProofCall() {
     try {
+      setApiLoading(true);
       const { address, publicKey } = wallet.account || {};
 
       const d = {
@@ -79,6 +81,7 @@ const Main = () => {
     } catch (error) {
       console.error(error);
     }
+    setApiLoading(false);
   }
 
   // @ts-ignore
@@ -206,6 +209,12 @@ const Main = () => {
           </a>
 
           <Button onClick={() => setTxHash(null)}>Close</Button>
+        </>
+      );
+    } else if (apiLoading) {
+      actionBarContent = (
+        <>
+          <Button disabled>pending...</Button>
         </>
       );
     } else {

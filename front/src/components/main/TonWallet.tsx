@@ -27,22 +27,22 @@ const TonWallet = ({ nickname, message, type }) => {
   }
 
   const handleSwitchWalletFunction = () => {
-    if (connected) {
-      console.log(">>> Send message to bacend");
-    } else {
-      tonConnectUI.disconnect();
+    // if (connected) {
+    //   console.log(">>> Send message to bacend");
+    // } else {
+    tonConnectUI.disconnect();
 
-      const d = toBase64(toAscii(data));
+    const d = toBase64(toAscii(data));
 
-      tonConnectUI.setConnectRequestParameters({
-        state: "ready",
-        value: {
-          tonProof: d,
-        },
-      });
+    tonConnectUI.setConnectRequestParameters({
+      state: "ready",
+      value: {
+        tonProof: d,
+      },
+    });
 
-      tonConnectUI.connectWallet();
-    }
+    tonConnectUI.connectWallet();
+    // }
   };
 
   return (
