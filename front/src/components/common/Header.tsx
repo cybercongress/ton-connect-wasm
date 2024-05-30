@@ -38,7 +38,7 @@ const Header = (props: HeaderProps) => {
       <HeaderWrapper $isOpen={isOpen} $backgroundType={backgroundType}>
         <HeaderTitle onClick={() => navigate("/")}>{text}</HeaderTitle>
         <HeaderRightBox>
-          {pathname === "/" && (
+          {/* {pathname === "/" && (
             <DisconnectButton $connect={connected}>
               {connected ? (
                 <img
@@ -54,7 +54,7 @@ const Header = (props: HeaderProps) => {
                 />
               )}
             </DisconnectButton>
-          )}
+          )} */}
           <MenuButton onClick={handleRouter} $isOpen={isOpen}>
             <span></span>
             <span></span>
@@ -118,10 +118,11 @@ const MenuButton = styled.button<{ $isOpen: boolean }>`
 
   border: none;
   border-radius: 1.8rem;
-  background: linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%);
+  /* background: linear-gradient(160deg, #f3f6fc 11.73%, #e6e7f7 98.61%); */
+  background: transparent;
 
   span {
-    background-color: #333;
+    background-color: var(--primary-color);
     display: block;
     position: absolute;
     height: 0.2rem;
@@ -159,7 +160,8 @@ const HeaderTitle = styled.div`
   gap: 0.6rem;
   color: #36d6ae;
   /* color: #2c3542; */
-  ${({ theme }) => theme.fonts.Nexton_Title_Medium};
+  font-size: 40px;
+  /* ${({ theme }) => theme.fonts.Nexton_Title_Medium}; */
 
   cursor: pointer;
 `;

@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 
 import Header from "@/components/common/Header";
 import JoinCommunity from "@/components/main/Menu/JoinCommunity";
+import MainContainer from "@/components/MainContainer";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -24,10 +25,12 @@ const Menu = () => {
     };
   }, []);
   return (
-    <MenuWrapper>
+    <MainContainer>
+      {/* <MenuWrapper> */}
       <Header isOpen={true} text="CYBER-TON" backgroundType={true} />
       <JoinCommunity />
-    </MenuWrapper>
+      {/* </MenuWrapper> */}
+    </MainContainer>
   );
 };
 
@@ -38,5 +41,5 @@ const MenuWrapper = styled.div`
   height: auto;
   min-height: 100%;
 
-  background-color: #f2f2f7;
+  background-color: black;
 `;

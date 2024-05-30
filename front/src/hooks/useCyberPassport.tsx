@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { toAscii, toBase64 } from "@cosmjs/encoding";
 
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 export async function getPassport(query) {
   const response = await axios.get(
@@ -15,6 +16,14 @@ export async function getPassport(query) {
 
 function useCyberPassport({ nickname }) {
   const [data, setData] = useState();
+
+  //  const data =  useQuery("passport", fetchData, {
+  //     enabled: false,
+  //   });
+
+  useEffect(() => {
+    setData(null);
+  }, [nickname]);
 
   function fetchData() {
     const query = {

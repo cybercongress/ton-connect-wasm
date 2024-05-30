@@ -18,6 +18,7 @@ import Passport from "./Passport/Passport";
 import ActionBar from "@/components/ActionBar/ActionBar";
 import { sendProof } from "@/api/cyber";
 import { trimString } from "@/utils/trimString";
+import styles from "./Main.module.scss";
 
 const tele = (window as any).Telegram.WebApp;
 
@@ -27,6 +28,8 @@ enum Steps {
   ADD_PASSPORT,
   ENTER_MESSAGE,
 }
+
+const LS_KEY = "lastPassport";
 
 const Main = () => {
   const { address, tonConnectUI, wallet, connected } = useTonConnect();
@@ -38,7 +41,8 @@ const Main = () => {
 
   const [message, setMessage] = useState("");
 
-  const [nickname, setNickname] = useState("congress");
+  const lastPassport = localStorage.getItem(LS_KEY) || "";
+  const [nickname, setNickname] = useState(lastPassport);
 
   console.log(wallet);
   console.log("PK", wallet?.account?.publicKey);
@@ -105,16 +109,29 @@ const Main = () => {
   const passport = dat2 as Citizenship;
 
   useEffect(() => {
+    if (lastPassport) {
+      if (!(passport && passport.extension.nickname === lastPassport)) {
+        fetchData();
+      }
+
+      if (passport) {
+        setStep(Steps.ENTER_MESSAGE);
+      }
+
+      return;
+    }
+
     if (passport) {
       setStep(Steps.ADD_PASSPORT);
     }
-  }, [passport]);
+  }, [lastPassport, passport]);
 
   useEffect(() => {
     if (passportProof) {
       setStep(Steps.ENTER_MESSAGE);
+      localStorage.setItem(LS_KEY, passport.extension.nickname);
     }
-  }, [passportProof]);
+  }, [passportProof, passport]);
 
   useEffect(() => {
     if (tele) {
@@ -132,21 +149,7 @@ const Main = () => {
       </Button>
     );
 
-    centerContent = (
-      <>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        doloremque quos cum, itaque soluta suscipit totam minima, nemo impedit
-        provident iure deserunt ducimus fugiat velit ex mollitia repellat
-        tempora. Illo qui praesentium ducimus consequuntur nemo nihil! Ex ipsum
-        natus vitae vel maxime impedit fuga tempore architecto quae minima omnis
-        eius possimus quis quos tempora repudiandae veniam, optio provident
-        nesciunt dolore iusto eligendi. Sunt, similique? Ullam atque repellat
-        itaque vel illum! Totam corporis aliquam dicta expedita doloribus qui id
-        nisi quisquam tempore perferendis, praesentium alias quia dignissimos
-        facilis rem sequi, quae ratione consequuntur itaque. Itaque id illum
-        quisquam, reprehenderit harum consequatur.
-      </>
-    );
+    centerContent = <>hi to user, what is passport, what to do here</>;
   } else if (step === Steps.ENTER_PASSPORT) {
     actionBarContent = (
       <>
@@ -170,9 +173,9 @@ const Main = () => {
   } else if (step === Steps.ADD_PASSPORT) {
     actionBarContent = (
       <>
-        your passport is {trimString(passport?.owner)}
+        {/* your passport is {trimString(passport?.owner, 6, 6)} */}
         <TonWallet nickname={nickname} type="passport" />
-        {passportProof && (
+        {/* {passportProof && (
           <div
             style={{
               fontSize: 14,
@@ -181,7 +184,7 @@ const Main = () => {
             <br />
             {JSON.stringify(passportProof)}
           </div>
-        )}
+        )} */}
       </>
     );
   } else if (step === Steps.ENTER_MESSAGE) {
@@ -212,14 +215,37 @@ const Main = () => {
         <Stars />
         <Header isOpen={false} text="CYBER-TON" backgroundType={false} />
 
-        <Button onClick={() => setStep(Steps.ENTER_MESSAGE)}>
-          To cyberlink step
-        </Button>
-
-        {centerContent}
+        <div
+          style={{
+            zIndex: 1,
+          }}
+        >
+          {centerContent}
+        </div>
 
         {passport && (
-          <Display title={<DisplayTitle title="moon passport" />}>
+          <Display
+            title={
+              <DisplayTitle
+                title={
+                  <div className={styles.passportHeader}>
+                    moon passport
+                    <button
+                      className={styles.resetBtn}
+                      onClick={() => {
+                        setStep(Steps.INITIAL);
+                        setNickname("");
+                        localStorage.removeItem(LS_KEY);
+                      }}
+                      title="reset passport"
+                    >
+                      reset passport
+                    </button>
+                  </div>
+                }
+              />
+            }
+          >
             <div
               style={{
                 fontSize: 14,

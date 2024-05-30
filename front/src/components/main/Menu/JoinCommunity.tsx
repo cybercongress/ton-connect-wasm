@@ -12,7 +12,7 @@ const JoinCommunity = () => {
 
   return (
     <JoinCommunityWrapper>
-      <JoinCommunityTitle>Join in our community</JoinCommunityTitle>
+      <JoinCommunityTitle>Join our cyber 👾 community</JoinCommunityTitle>
       <JoinCommunityButtonList>
         <JoinCommunityButton
           onClick={() => handleNewTap("https://twitter.com/cyber_devs")}
@@ -41,6 +41,15 @@ const JoinCommunity = () => {
           </div>
           <img src={IcNftMoreArrow} alt="moreArrow_disabled" width={10} />
         </JoinCommunityButton>
+        <JoinCommunityButton
+          onClick={() => handleNewTap("https://cyb.ai/social")}
+        >
+          <div>
+            {/* <img src={IcMenuDiscord} alt="discord_disabled" /> */}
+            More contacts
+          </div>
+          <img src={IcNftMoreArrow} alt="moreArrow_disabled" width={10} />
+        </JoinCommunityButton>
       </JoinCommunityButtonList>
     </JoinCommunityWrapper>
   );
@@ -50,7 +59,8 @@ export default JoinCommunity;
 
 const JoinCommunityWrapper = styled.div`
   width: 100%;
-  padding: 0 1.5rem;
+  background-color: black;
+  /* padding: 0 1.5rem; */
 `;
 
 const JoinCommunityTitle = styled.div`
@@ -65,8 +75,8 @@ const JoinCommunityTitle = styled.div`
 const JoinCommunityButtonList = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   gap: 0.6rem;
 
   width: 100%;
@@ -75,15 +85,21 @@ const JoinCommunityButtonList = styled.div`
 
 const JoinCommunityButton = styled.button<{ $inactive?: boolean }>`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 
-  width: 100%;
+  /* width: 100%; */
   padding: 1.7rem 2rem;
-
-  border: ${({ $inactive }) => ($inactive ? "0.1rem solid #E1E4E6" : "0.1rem solid #d1d1d6")};
+  border: none;
+  /* 
+  border: ${({ $inactive }) =>
+    $inactive ? "0.1rem solid #E1E4E6" : "0.1rem solid #d1d1d6"}; */
   border-radius: 2rem;
-  background-color: #f2f2f7;
+  background-color: transparent;
+
+  &:hover {
+    opacity: 0.8;
+  }
 
   cursor: ${({ $inactive }) => ($inactive ? "default" : "pointer")};
 
@@ -93,7 +109,9 @@ const JoinCommunityButton = styled.button<{ $inactive?: boolean }>`
     align-items: center;
     gap: 2.2rem;
 
-    color: ${({ $inactive }) => ($inactive ? "#E1E4E6" : "#2f3038")};
-    ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium};
+    /* color: ${({ $inactive }) => ($inactive ? "#E1E4E6" : "#2f3038")}; */
+    color: #36d6ae;
+    padding-right: 1rem;
+    /* ${({ theme }) => theme.fonts.Nexton_Body_Text_Medium}; */
   }
 `;
