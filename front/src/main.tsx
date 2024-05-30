@@ -9,7 +9,12 @@ const manifestUrl =
   "https://ton-wasm-cyber-hackathon.netlify.app/tonconnect-manifest.json";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <TonConnectUIProvider manifestUrl={manifestUrl}>
+  <TonConnectUIProvider
+    manifestUrl={manifestUrl}
+    actionsConfiguration={{
+      returnStrategy: "https://t.me/awesome_cyber_bot",
+    }}
+  >
     <App />
   </TonConnectUIProvider>
 );
