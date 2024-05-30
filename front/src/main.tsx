@@ -12,9 +12,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <TonConnectUIProvider
     manifestUrl={manifestUrl}
     actionsConfiguration={{
-      // returnStrategy: "https://t.me/awesome_cyber_bot",
-      returnStrategy: "https://ton-wasm-cyber-hackathon.netlify.app",
-      twaReturnUrl: "https://ton-wasm-cyber-hackathon.netlify.app",
+      returnStrategy: "https://t.me/awesome_cyber_bot",
+      // returnStrategy: "https://ton-wasm-cyber-hackathon.netlify.app",
+      // twaReturnUrl: "https://ton-wasm-cyber-hackathon.netlify.app",
     }}
   >
     <App />
